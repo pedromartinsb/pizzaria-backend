@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import multer from "multer";
 
 import { CreateUserController } from "./controllers/user/CreateUserController";
@@ -16,6 +16,9 @@ import { RemoveOrderController } from "./controllers/order/RemoveOrderController
 import { AddItemOrderController } from "./controllers/order/AddItemOrderController";
 import { RemoveItemOrderController } from "./controllers/order/RemoveItemOrderController";
 import { SendOrderController } from "./controllers/order/SendOrderController";
+import { ListOrdersController } from "./controllers/order/ListOrdersController";
+import { DetailOrderController } from "./controllers/order/DetailOrderController";
+import { FinishOrderController } from "./controllers/order/FinishOrderController";
 
 const router = Router();
 
@@ -60,5 +63,16 @@ router.delete(
   new RemoveItemOrderController().handle
 );
 router.put("/order/send", isAuthenticated, new SendOrderController().handle);
+router.get("/orders", isAuthenticated, new ListOrdersController().handle);
+router.get(
+  "/order/detail",
+  isAuthenticated,
+  new DetailOrderController().handle
+);
+router.put(
+  "/order/finish",
+  isAuthenticated,
+  new FinishOrderController().handle
+);
 
 export { router };
